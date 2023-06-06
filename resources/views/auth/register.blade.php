@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="bg-gray-50 dark:bg-gray-900">
+    <section class="bg-gray-50 dark:bg-gray-900 mt-6">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 bg-neutral-800">
             <a href="/" class="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white">
                 Planeterium<span class="text-4xl text-amber-600">.</span>
@@ -34,15 +34,34 @@
                         <div>
                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500form-control @error('password') is-invalid @enderror" required autocomplete="new-password">
+                            <input id="checkbox" type="checkbox" value="" class="w-4 h-4 text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Show Password</label>
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                            @enderror 
+                            @enderror
                         </div>
                         <div>
                             <label for="password-confirm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
                             <input id="password-confirm" type="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 form-control" name="password_confirmation" required autocomplete="new-password">
+                        </div>
+                        <div class="">
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                Password must be a minimum of <strong>10 characters</strong> with:
+                            </p>
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                -at least <strong>one uppercase</strong> letter
+                            </p>
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                -at least <strong>one lowercase</strong> letter
+                            </p>
+                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                -at least <strong>one number</strong>
+                            </p><p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                -at least <strong>one symbol</strong>
+                            </p>
+
                         </div>
 {{--                        <div class="flex items-start">--}}
 {{--                            <div class="flex items-center h-5">--}}
@@ -61,6 +80,14 @@
             </div>
         </div>
     </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#checkbox').on('change', function() {
+                $('#password').attr('type',$('#checkbox').prop('checked')==true ? "text" : "password");
+            });
+        });
+    </script>
 {{--<div class="container">--}}
 {{--    <div class="row justify-content-center">--}}
 {{--        <div class="col-md-8">--}}
@@ -134,4 +161,5 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
+
 @endsection
