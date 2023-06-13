@@ -1,4 +1,5 @@
 <!-- Main navigation container -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <nav
     class="relative flex w-full flex-wrap items-center justify-between bg-neutral-900 py-2 text-neutral-200 shadow-lg lg:flex-wrap lg:justify-start lg:py-4"
     data-te-navbar-ref>
@@ -28,7 +29,7 @@
         </button>
 
         <!-- Collapsible navigation container -->
-        <div style="width: 100%; height:10%" class="flex items-center justify-center h-screen">
+        <div class="mt-2 flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto" id="navbarSupportedContent4" data-te-collapse-item>
         <div
             class="!visible mt-2 hidden flex-grow basis-[100%] items-center lg:mt-0 lg:!flex lg:basis-auto"
             id="navbarSupportedContent4"
@@ -54,7 +55,7 @@
                 <!-- Team link -->
                 <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
                     <a
-                        class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                        class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90"
                         href="#"
                         data-te-nav-link-ref
                     >Opportunity</a
@@ -63,7 +64,7 @@
                 <!-- Projects link -->
                 <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
                     <a
-                        class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90 dark:[&.active]:text-neutral-400"
+                        class="p-0 text-white opacity-60 hover:opacity-80 focus:opacity-80 disabled:text-black/30 lg:px-2 [&.active]:text-black/90"
                         href="#"
                         data-te-nav-link-ref
                     >Spirit</a
@@ -86,17 +87,16 @@
                         </li>
                     @endif
                 @else
-                    <li class="nav-item dropdown">
-                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-neutral-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-neutral-600 dark:hover:bg-neutral-700 dark:focus:ring-neutral-800" type="button">{{ Auth::user()->name }} <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                    <li class="nav-item dropdown relative">
+                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-neutral-700 hover:bg-neutral-800 focus:ring-4 focus:outline-none focus:ring-neutral-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button">{{ Auth::user()->name }} <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
                         <!-- Dropdown menu -->
-                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute right-0 mt-2" style="z-index: 9999">                            <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit Profile</a>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100">Edit Profile</a>
                                 </li>
                                 <li>
-                                    <a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                    <a class="block px-4 py-2 hover:bg-gray-100" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                     </a>
@@ -118,9 +118,37 @@
         </div>
         </div>
     </div>
-    </div>
-    </div>
 </nav>
+
+<style>
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 0.5rem;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownButton = document.getElementById('dropdownDefaultButton');
+        const dropdownMenu = document.getElementById('dropdown');
+
+        dropdownButton.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', function(event) {
+            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>
 
 
 
