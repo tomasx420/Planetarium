@@ -43,7 +43,9 @@
                 <li class="my-4 lg:my-0 lg:pr-2" data-te-nav-item-ref>
                     <a
                         class="text-white lg:px-2 hover:opacity-80 focus:opacity-80
-                        {{ Request::route()->getName() === 'curiosity.index' ? "" : "opacity-60" }}"
+                        @if(Request::route() != null)
+                            {{ Request::route()->getName() === 'curiosity.index' ? "" : "opacity-60" }}"
+                        @endif
                         href="/curiosity"
                         data-te-nav-link-ref
                     >Curiosity</a

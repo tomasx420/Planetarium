@@ -22,6 +22,8 @@ class CuriosityController extends Controller
      */
         public function index()
         {
+
+            abort(500);
             $curiosityApiData = $this->nasaApiService->getCuriosityMarsPhoto();
 
             $panoramicPhoto = $curiosityApiData['latest_photos'][0]['img_src'];
